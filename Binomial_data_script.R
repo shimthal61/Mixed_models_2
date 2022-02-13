@@ -27,6 +27,14 @@ binomial_model <- glmer(DV ~ Condition +
 
 summary(binomial_model) 
 
+# We can also build the binomial model with only our random effects and compare it to our fixed effects model
+
+null_binomial_model <- glmer(DV ~ (1 | Subject),
+                             data = binomial_data,
+                             family = binomial)
+
+anova(binomial_model, null_binomial_model)
+
 # We can have a look to see how many trials we did our each condition
 
 binomial_data %>% 
@@ -39,3 +47,5 @@ binomial_data %>%
 # We expect to find 95% to fall between the jagged lines, which it does:
 
 binnedplot(fitted(binomial_model), resid(binomial_model, type = "response"))
+
+# We don't have a significant interaction, so no need to perform pairwise comparisons
