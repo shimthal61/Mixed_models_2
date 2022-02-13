@@ -18,10 +18,24 @@ binomial_model <- glmer(DV ~ Condition +
                           (1 + Condition | Item),
                           data = binomial_data, family = binomial)
 
-# We need to simplify our random effect structure to a huge extent to create a model with our data
+# We need to massively simplify our random effect structure to create a model with our data
 
 binomial_model <- glmer(DV ~ Condition + 
                           (1 | Subject),
                         data = binomial_data,
                         family = binomial)
 
+summary(binomial_model) 
+
+# We can have a look to see how many trials we did our each condition
+
+binomial_data %>% 
+  group_by(Condition, DV) %>% 
+  summarise(n())
+
+# We have far more trials where have no regressions. Not a great dataset. 
+
+# We don't need to check for residuals when using binomial data. We instead used a binned residual plot. 
+# We expect to find 95% to fall between the jagged lines, which it does:
+
+binnedplot(fitted(binomial_model), resid(binomial_model, type = "response"))
