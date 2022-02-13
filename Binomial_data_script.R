@@ -46,6 +46,8 @@ binomial_data %>%
 # We don't need to check for residuals when using binomial data. We instead used a binned residual plot. 
 # We expect to find 95% to fall between the jagged lines, which it does:
 
+library(arm)
+
 binnedplot(fitted(binomial_model), resid(binomial_model, type = "response"))
 
 # We don't have a significant interaction, so no need to perform pairwise comparisons
