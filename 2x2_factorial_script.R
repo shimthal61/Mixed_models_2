@@ -103,7 +103,7 @@ descdist(missing_data_removed$RT)
 
 # In the above plot, we can see that our data is close to the gamma distribution.
 # We can try to model our data using a generalised linear model assuming sampling from the Gamma distribution using the
-# glmer() function
+# glmer() function (generalised linear model).  It works the same, except we have to specify the distributional family
 
 gamma_factorial_model <- glmer(RT ~ Context * Sentence +
                                  (1 + Context + Sentence | Subject) +
